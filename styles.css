@@ -9,7 +9,7 @@
   --clay: #9f4d32;
   --teal: #244f52;
   --moss: #6f7551;
-  --header-height: 74px;
+  --header-height: 88px;
   --wide: min(1440px, calc(100vw - 48px));
   --content: min(1120px, calc(100vw - 48px));
 }
@@ -81,16 +81,16 @@ textarea {
 
 .site-header {
   position: fixed;
-  top: 14px;
+  top: 18px;
   left: 50%;
   z-index: 10;
-  width: min(760px, calc(100vw - 28px));
-  min-height: 44px;
+  width: min(900px, calc(100vw - 32px));
+  min-height: 62px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  padding: 5px 6px 5px 14px;
+  gap: 24px;
+  padding: 8px 9px 8px 22px;
   color: var(--ink);
   background: rgba(255, 253, 247, 0.9);
   border: 1px solid rgba(255, 253, 247, 0.5);
@@ -111,7 +111,11 @@ textarea {
 }
 
 .brand {
-  font-size: 0.92rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  font-stretch: expanded;
+  letter-spacing: 0.06em;
   white-space: nowrap;
 }
 
@@ -123,8 +127,9 @@ textarea {
 }
 
 .primary-nav a {
-  font-family: Impact, "Arial Black", sans-serif;
-  font-size: 0.74rem;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
   text-transform: uppercase;
   text-decoration: none;
 }
@@ -132,7 +137,7 @@ textarea {
 .nav-cta {
   background: var(--ink);
   color: var(--bone);
-  padding: 10px 13px;
+  padding: 14px 18px;
   border-radius: 999px;
 }
 
@@ -163,6 +168,12 @@ textarea {
   z-index: -2;
   min-height: 100%;
   overflow: hidden;
+}
+
+.hero-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .hero-media img {
@@ -342,33 +353,7 @@ h3 {
   text-wrap: balance;
 }
 
-.proof {
-  display: grid;
-  grid-template-columns: minmax(280px, 0.9fr) minmax(0, 1.1fr);
-  gap: clamp(34px, 7vw, 90px);
-  border-top: 0;
-}
-
-.proof .eyebrow {
-  color: var(--accent-deep);
-}
-
-.proof-list article {
-  display: grid;
-  grid-template-columns: minmax(160px, 0.45fr) minmax(0, 1fr);
-  gap: clamp(18px, 4vw, 58px);
-  padding: 24px 0;
-  border-top: 1px solid var(--line);
-}
-
-.proof-list article:first-child {
-  border-top: 0;
-  padding-top: 0;
-}
-
-.proof-list p,
 .about-copy p,
-.messages-copy p,
 .bento-card p,
 .booking-intro,
 .form-note {
@@ -488,12 +473,19 @@ h3 {
   background: var(--ink);
 }
 
-.bento-card-video img,
-.bento-card-image img,
-.bento-card-photo img {
+.bento-card-video picture,
+.bento-card-image picture,
+.bento-card-photo picture {
   position: absolute;
   inset: 0;
   z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bento-card-video img,
+.bento-card-image img,
+.bento-card-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -588,54 +580,6 @@ h3 {
   color: var(--bone);
 }
 
-.messages {
-  width: 100%;
-  margin: 0;
-  padding-inline: max(24px, calc((100vw - 1120px) / 2));
-  display: grid;
-  grid-template-columns: minmax(290px, 0.76fr) minmax(0, 1.1fr);
-  gap: clamp(34px, 7vw, 88px);
-  align-items: center;
-  background: color-mix(in srgb, var(--accent) 16%, var(--paper));
-  border-top: 1px solid rgba(146, 81, 47, 0.24);
-  border-bottom: 1px solid rgba(146, 81, 47, 0.24);
-}
-
-.messages h2 {
-  max-width: 8ch;
-}
-
-.messages-copy p {
-  max-width: 560px;
-  margin-bottom: 24px;
-}
-
-.message-video {
-  position: relative;
-  overflow: hidden;
-  background: var(--ink);
-  aspect-ratio: 16 / 9;
-  color: var(--bone);
-  border-radius: 6px;
-}
-
-.message-video img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 42%;
-  filter: grayscale(1) contrast(1.1) brightness(0.72);
-  transition: transform 240ms ease, filter 240ms ease;
-}
-
-.message-video:hover img,
-.message-video:focus-visible img {
-  transform: scale(1.03);
-  filter: grayscale(1) contrast(1.16) brightness(0.62);
-}
-
 .play-button {
   position: absolute;
   left: 50%;
@@ -682,6 +626,11 @@ h3 {
   object-fit: cover;
   object-position: 50% 42%;
   filter: grayscale(1) contrast(1.12);
+}
+
+.image-band picture {
+  position: absolute;
+  inset: 0;
 }
 
 .image-band-copy {
@@ -737,6 +686,10 @@ h3 {
   background: #ddd4c7;
 }
 
+.about-image picture {
+  display: block;
+}
+
 .about-image img {
   width: 100%;
   aspect-ratio: 0.76;
@@ -773,6 +726,12 @@ h3 {
 .booking-media {
   min-height: 100%;
   overflow: hidden;
+}
+
+.booking-media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .booking-media img {
@@ -863,8 +822,13 @@ textarea:focus {
 }
 
 .final-cta h2 {
-  max-width: 12ch;
+  max-width: none;
   margin-inline: auto;
+}
+
+.final-cta h2 span {
+  display: block;
+  white-space: nowrap;
 }
 
 .site-footer {
@@ -953,6 +917,7 @@ textarea:focus {
     min-height: var(--header-height);
     align-items: center;
     gap: 18px;
+    padding: 7px 8px 7px 18px;
     color: var(--ink);
   }
 
@@ -980,9 +945,7 @@ textarea:focus {
     padding: 114px 16px 130px;
   }
 
-  .proof,
   .about,
-  .messages,
   .booking {
     grid-template-columns: 1fr;
   }
@@ -1025,8 +988,16 @@ textarea:focus {
 
 @media (max-width: 640px) {
   .site-header {
-    min-height: 40px;
-    padding: 5px 5px 5px 12px;
+    min-height: 54px;
+    padding: 6px 6px 6px 14px;
+  }
+
+  .brand {
+    font-size: 0.95rem;
+  }
+
+  .nav-cta {
+    padding: 12px 15px;
   }
 
   .primary-nav a:not(.nav-cta) {
@@ -1072,7 +1043,6 @@ textarea:focus {
     min-height: 330px;
   }
 
-  .proof-list article,
   .field-grid {
     grid-template-columns: 1fr;
   }

@@ -21,7 +21,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#0d0d0d" />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.min.css" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -65,13 +65,33 @@
     <main id="main">
       <section class="hero" id="top" aria-labelledby="hero-title">
         <div class="hero-media" data-parallax>
-          <img
-            src="assets/tyshone-stage-wide.jpg"
-            width="1598"
-            height="1608"
-            alt="Tyshone Roland preaching during a ministry gathering"
-            fetchpriority="high"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="
+                assets/responsive/tyshone-stage-wide-640.webp   640w,
+                assets/responsive/tyshone-stage-wide-960.webp   960w,
+                assets/responsive/tyshone-stage-wide-1280.webp 1280w,
+                assets/responsive/tyshone-stage-wide-1598.webp 1598w
+              "
+              sizes="100vw"
+            />
+            <img
+              src="assets/responsive/tyshone-stage-wide-1598.jpg"
+              srcset="
+                assets/responsive/tyshone-stage-wide-640.jpg   640w,
+                assets/responsive/tyshone-stage-wide-960.jpg   960w,
+                assets/responsive/tyshone-stage-wide-1280.jpg 1280w,
+                assets/responsive/tyshone-stage-wide-1598.jpg 1598w
+              "
+              sizes="100vw"
+              width="1598"
+              height="1608"
+              alt="Tyshone Roland preaching during a ministry gathering"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
         <div class="hero-copy" data-animate>
           <p class="eyebrow">Evangelist for churches, conferences, and city outreaches</p>
@@ -117,7 +137,33 @@
             data-animate
             aria-label="Watch a preaching clip from Tyshone Roland on YouTube"
           >
-            <img src="assets/tyshone-pulpit.jpg" width="1658" height="1650" alt="" loading="lazy" />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/responsive/tyshone-pulpit-384.webp   384w,
+                  assets/responsive/tyshone-pulpit-640.webp   640w,
+                  assets/responsive/tyshone-pulpit-960.webp   960w,
+                  assets/responsive/tyshone-pulpit-1280.webp 1280w
+                "
+                sizes="(max-width: 640px) calc(100vw - 24px), (max-width: 980px) calc(100vw - 32px), 580px"
+              />
+              <img
+                src="assets/responsive/tyshone-pulpit-960.jpg"
+                srcset="
+                  assets/responsive/tyshone-pulpit-384.jpg   384w,
+                  assets/responsive/tyshone-pulpit-640.jpg   640w,
+                  assets/responsive/tyshone-pulpit-960.jpg   960w,
+                  assets/responsive/tyshone-pulpit-1280.jpg 1280w
+                "
+                sizes="(max-width: 640px) calc(100vw - 24px), (max-width: 980px) calc(100vw - 32px), 580px"
+                width="1658"
+                height="1650"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <span class="play-button" aria-hidden="true"></span>
             <strong>Watch before you book.</strong>
           </a>
@@ -126,7 +172,33 @@
             data-animate
             aria-label="Portrait of Tyshone Roland"
           >
-            <img src="assets/tyshone-portrait.jpg" width="2500" height="3335" alt="" loading="lazy" />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/responsive/tyshone-portrait-320.webp 320w,
+                  assets/responsive/tyshone-portrait-480.webp 480w,
+                  assets/responsive/tyshone-portrait-720.webp 720w,
+                  assets/responsive/tyshone-portrait-960.webp 960w
+                "
+                sizes="(max-width: 640px) calc(100vw - 24px), (max-width: 980px) calc((100vw - 44px) / 2), 380px"
+              />
+              <img
+                src="assets/responsive/tyshone-portrait-720.jpg"
+                srcset="
+                  assets/responsive/tyshone-portrait-320.jpg 320w,
+                  assets/responsive/tyshone-portrait-480.jpg 480w,
+                  assets/responsive/tyshone-portrait-720.jpg 720w,
+                  assets/responsive/tyshone-portrait-960.jpg 960w
+                "
+                sizes="(max-width: 640px) calc(100vw - 24px), (max-width: 980px) calc((100vw - 44px) / 2), 380px"
+                width="2500"
+                height="3335"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </article>
           <article class="bento-card bento-card-small" data-animate>
             <h3>Churches</h3>
@@ -137,7 +209,33 @@
             <p>Youth. Young adults. Leaders.</p>
           </article>
           <article class="bento-card bento-card-wide bento-card-image" data-animate>
-            <img src="assets/tyshone-speaking-soft.jpg" width="1286" height="1600" alt="" loading="lazy" />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="
+                  assets/responsive/tyshone-speaking-soft-384.webp   384w,
+                  assets/responsive/tyshone-speaking-soft-640.webp   640w,
+                  assets/responsive/tyshone-speaking-soft-960.webp   960w,
+                  assets/responsive/tyshone-speaking-soft-1280.webp 1280w
+                "
+                sizes="(max-width: 640px) calc(100vw - 24px), (max-width: 980px) calc(100vw - 32px), 770px"
+              />
+              <img
+                src="assets/responsive/tyshone-speaking-soft-960.jpg"
+                srcset="
+                  assets/responsive/tyshone-speaking-soft-384.jpg   384w,
+                  assets/responsive/tyshone-speaking-soft-640.jpg   640w,
+                  assets/responsive/tyshone-speaking-soft-960.jpg   960w,
+                  assets/responsive/tyshone-speaking-soft-1280.jpg 1280w
+                "
+                sizes="(max-width: 640px) calc(100vw - 24px), (max-width: 980px) calc(100vw - 32px), 770px"
+                width="1286"
+                height="1600"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
             <div>
               <h3>City outreaches</h3>
               <p>Project Salvation nights built for altar response and local church follow-up.</p>
@@ -151,13 +249,31 @@
       </section>
 
       <section class="image-band" id="project-salvation" aria-label="Project Salvation ministry gathering" data-animate>
-        <img
-          src="assets/tyshone-pulpit.jpg"
-          width="1658"
-          height="1650"
-          alt="Tyshone Roland preaching during a ministry gathering"
-          loading="lazy"
-        />
+        <picture>
+          <source
+            type="image/webp"
+            srcset="
+              assets/responsive/tyshone-pulpit-640.webp   640w,
+              assets/responsive/tyshone-pulpit-960.webp   960w,
+              assets/responsive/tyshone-pulpit-1280.webp 1280w
+            "
+            sizes="100vw"
+          />
+          <img
+            src="assets/responsive/tyshone-pulpit-1280.jpg"
+            srcset="
+              assets/responsive/tyshone-pulpit-640.jpg   640w,
+              assets/responsive/tyshone-pulpit-960.jpg   960w,
+              assets/responsive/tyshone-pulpit-1280.jpg 1280w
+            "
+            sizes="100vw"
+            width="1658"
+            height="1650"
+            alt="Tyshone Roland preaching during a ministry gathering"
+            loading="lazy"
+            decoding="async"
+          />
+        </picture>
         <div class="image-band-copy">
           <p class="eyebrow">Project Salvation</p>
           <h2>Reach the city.</h2>
@@ -167,7 +283,33 @@
 
       <section class="about section" id="about" aria-labelledby="about-title">
         <div class="about-image" data-animate>
-          <img src="assets/rolands.jpg" width="1500" height="2070" alt="Tyshone and Victoria Roland" />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="
+                assets/responsive/rolands-320.webp 320w,
+                assets/responsive/rolands-480.webp 480w,
+                assets/responsive/rolands-720.webp 720w,
+                assets/responsive/rolands-960.webp 960w
+              "
+              sizes="(max-width: 980px) calc(100vw - 32px), 460px"
+            />
+            <img
+              src="assets/responsive/rolands-720.jpg"
+              srcset="
+                assets/responsive/rolands-320.jpg 320w,
+                assets/responsive/rolands-480.jpg 480w,
+                assets/responsive/rolands-720.jpg 720w,
+                assets/responsive/rolands-960.jpg 960w
+              "
+              sizes="(max-width: 980px) calc(100vw - 32px), 460px"
+              width="1500"
+              height="2070"
+              alt="Tyshone and Victoria Roland"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
         <div class="about-copy" data-animate>
           <p class="eyebrow">About Tyshone</p>
@@ -179,7 +321,33 @@
 
       <section class="booking" id="booking" aria-labelledby="booking-title">
         <div class="booking-media" data-animate>
-          <img src="assets/tyshone-tent-speaking.jpg" width="1304" height="1628" alt="Tyshone Roland in a ministry setting" />
+          <picture>
+            <source
+              type="image/webp"
+              srcset="
+                assets/responsive/tyshone-tent-speaking-320.webp 320w,
+                assets/responsive/tyshone-tent-speaking-480.webp 480w,
+                assets/responsive/tyshone-tent-speaking-720.webp 720w,
+                assets/responsive/tyshone-tent-speaking-960.webp 960w
+              "
+              sizes="(max-width: 980px) 100vw, 45vw"
+            />
+            <img
+              src="assets/responsive/tyshone-tent-speaking-720.jpg"
+              srcset="
+                assets/responsive/tyshone-tent-speaking-320.jpg 320w,
+                assets/responsive/tyshone-tent-speaking-480.jpg 480w,
+                assets/responsive/tyshone-tent-speaking-720.jpg 720w,
+                assets/responsive/tyshone-tent-speaking-960.jpg 960w
+              "
+              sizes="(max-width: 980px) 100vw, 45vw"
+              width="1304"
+              height="1628"
+              alt="Tyshone Roland in a ministry setting"
+              loading="lazy"
+              decoding="async"
+            />
+          </picture>
         </div>
         <div class="booking-panel" data-animate>
           <p class="eyebrow">Booking request</p>
@@ -237,7 +405,7 @@
 
       <section class="final-cta section" data-animate>
         <p class="eyebrow">Ready to talk?</p>
-        <h2>Bring the Gospel into the room.</h2>
+        <h2><span>Bring the Gospel</span> <span>into the room.</span></h2>
         <a class="button button-primary" href="#booking">Request availability</a>
       </section>
     </main>
@@ -254,6 +422,6 @@
       <a href="mailto:evangelist@tyshoneroland.com">evangelist@tyshoneroland.com</a>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="script.min.js" defer></script>
   </body>
 </html>

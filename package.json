@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "images": "node scripts/generate-images.mjs",
+    "minify:css": "cleancss -o styles.min.css styles.css",
+    "minify:js": "terser script.js -c -m -o script.min.js",
+    "minify": "npm run minify:css && npm run minify:js",
+    "build": "npm run images && npm run minify"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "sharp": "^0.33.5",
+    "terser": "^5.31.6"
+  }
+}
