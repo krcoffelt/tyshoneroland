@@ -342,13 +342,19 @@ h1 {
 
 .preach-button {
   position: relative;
+  display: grid;
+  align-content: center;
+  justify-items: center;
   width: 100%;
   min-height: clamp(180px, 23vw, 300px);
+  padding: 24px;
   overflow: hidden;
   border: 0;
   border-radius: 10px;
   background: var(--cobalt);
   color: var(--ink);
+  container-type: inline-size;
+  text-align: center;
   box-shadow: inset 0 -12px 0 rgba(7, 17, 18, 0.22), 0 26px 70px rgba(18, 152, 242, 0.28);
   transform: translateY(0);
   transition: transform 120ms ease, box-shadow 120ms ease;
@@ -388,13 +394,16 @@ h1 {
 }
 
 .preach-button span {
-  font-size: clamp(5rem, 14vw, 13rem);
-  line-height: 0.84;
+  max-width: 100%;
+  font-size: clamp(4.25rem, 18cqw, 9rem);
+  line-height: 0.82;
+  white-space: nowrap;
 }
 
 .preach-button small {
-  margin-top: 10px;
-  font-size: clamp(1rem, 1.7vw, 1.35rem);
+  margin-top: 14px;
+  font-size: clamp(1.65rem, 3vw, 3rem);
+  line-height: 0.95;
   font-weight: 950;
   text-transform: uppercase;
 }
@@ -402,11 +411,11 @@ h1 {
 .click-float {
   position: fixed;
   z-index: 30;
-  color: var(--cobalt);
+  color: #37f26b;
   font-family: Impact, "Arial Black", sans-serif;
   font-size: 2rem;
   line-height: 1;
-  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 0 18px rgba(55, 242, 107, 0.42), 0 6px 18px rgba(0, 0, 0, 0.4);
   pointer-events: none;
   animation: floatCash 820ms ease-out forwards;
 }
@@ -696,7 +705,11 @@ h1 {
   }
 
   .preach-button span {
-    font-size: clamp(4.7rem, 23vw, 6.7rem);
+    font-size: clamp(4.25rem, 18cqw, 6.7rem);
+  }
+
+  .preach-button small {
+    font-size: clamp(1.55rem, 7vw, 2.35rem);
   }
 
   .upgrade-feature button,
