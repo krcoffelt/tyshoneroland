@@ -1,47 +1,47 @@
 const clickLevels = [
-  { name: "Local Outreach", value: 1, cost: 0 },
-  { name: "Youth Night", value: 5, cost: 75 },
-  { name: "Sunday Service", value: 25, cost: 500 },
-  { name: "Regional Conference", value: 100, cost: 3500 },
-  { name: "Famous Church", value: 500, cost: 18000 },
-  { name: "Arena Crusade", value: 2500, cost: 95000 }
+  { name: "Local Youth Group", value: 1, cost: 0 },
+  { name: "Motion Students", value: 5, cost: 75 },
+  { name: "Celebration Church", value: 25, cost: 500 },
+  { name: "Gateway Church", value: 100, cost: 3500 },
+  { name: "Transformation Church", value: 500, cost: 18000 },
+  { name: "Elevation Church", value: 2500, cost: 95000 }
 ];
 
 const droppers = [
   {
     id: "invite-requests",
-    name: "Invite Requests",
+    name: "Highlands Students Invites",
     cost: 60,
     income: 1,
-    copy: "Church inbox starts filling up."
+    copy: "Student ministry invitations start coming in."
   },
   {
     id: "travel-team",
-    name: "Travel Team",
+    name: "Forward Conference",
     cost: 300,
     income: 6,
-    copy: "Flights, hotels, and Sundays stay organized."
+    copy: "Student conference momentum picks up."
   },
   {
     id: "media-clips",
-    name: "Media Clips",
+    name: "Passion Conference Clips",
     cost: 1500,
     income: 30,
-    copy: "Short clips keep new invitations moving."
+    copy: "Message clips keep new invites moving."
   },
   {
     id: "conference-circuit",
-    name: "Conference Circuit",
+    name: "VOUS Conference Circuit",
     cost: 9000,
     income: 180,
-    copy: "Youth and leader events stack the calendar."
+    copy: "Leader and young adult events stack the calendar."
   },
   {
     id: "global-crusade-calendar",
-    name: "Global Crusade Calendar",
+    name: "Gateway Conference Calendar",
     cost: 50000,
     income: 1200,
-    copy: "Nations, arenas, and outreach nights."
+    copy: "Large church conference invitations go national."
   }
 ];
 
