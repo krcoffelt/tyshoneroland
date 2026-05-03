@@ -45,6 +45,41 @@ const droppers = [
   }
 ];
 
+const boosts = [
+  {
+    id: "message-archive",
+    name: "Sermon Clip Vault",
+    cost: 250,
+    type: "clickMultiplier",
+    value: 1.5,
+    copy: "Every click earns 1.5x honorariums."
+  },
+  {
+    id: "booking-crm",
+    name: "Booking CRM",
+    cost: 1200,
+    type: "passiveMultiplier",
+    value: 2,
+    copy: "All passive systems produce 2x faster."
+  },
+  {
+    id: "prayer-team",
+    name: "Prayer Team",
+    cost: 6500,
+    type: "clickMultiplier",
+    value: 2,
+    copy: "Preaching clicks double again."
+  },
+  {
+    id: "road-manager",
+    name: "Road Manager",
+    cost: 26000,
+    type: "passiveMultiplier",
+    value: 3,
+    copy: "Passive conference income triples."
+  }
+];
+
 const characterStages = [
   {
     minLevel: 0,
@@ -72,7 +107,8 @@ const state = {
   money: 0,
   totalEarned: 0,
   clickLevel: 0,
-  ownedDroppers: new Set()
+  ownedDroppers: new Set(),
+  ownedBoosts: new Set()
 };
 
 const elements = {
@@ -90,6 +126,7 @@ const elements = {
   tierMeterFill: document.querySelector("#tier-meter-fill"),
   levelList: document.querySelector("#level-list"),
   dropperList: document.querySelector("#dropper-list"),
+  boostList: document.querySelector("#boost-list"),
   activityList: document.querySelector("#activity-list"),
   characterImages: document.querySelectorAll("[data-character-image]")
 };
@@ -101,8 +138,19 @@ const formatMoney = (value) =>
     maximumFractionDigits: 0
   }).format(Math.floor(value));
 
+const getBoostMultiplier = (type) =>
+  boosts.reduce((multiplier, boost) => {
+    if (boost.type !== type || !state.ownedBoosts.has(boost.id)) return multiplier;
+    return multiplier * boost.value;
+  }, 1);
+
+const getClickValue = () => Math.floor(clickLevels[state.clickLevel].value * getBoostMultiplier("clickMultiplier"));
+
 const getPerSecond = () =>
-  droppers.reduce((total, dropper) => total + (state.ownedDroppers.has(dropper.id) ? dropper.income : 0), 0);
+  Math.floor(
+    droppers.reduce((total, dropper) => total + (state.ownedDroppers.has(dropper.id) ? dropper.income : 0), 0) *
+      getBoostMultiplier("passiveMultiplier")
+  );
 
 const getCharacterStage = () =>
   characterStages.reduce((active, stage) => (state.clickLevel >= stage.minLevel ? stage : active), characterStages[0]);
@@ -187,17 +235,41 @@ const renderDroppers = () => {
   });
 };
 
+const renderBoosts = () => {
+  elements.boostList.innerHTML = "";
+
+  boosts.forEach((boost) => {
+    const isOwned = state.ownedBoosts.has(boost.id);
+    const card = document.createElement("div");
+    card.className = `shop-card ${isOwned ? "is-owned" : ""}`;
+    card.innerHTML = `
+      <div>
+        <span class="card-meta">${boost.type === "clickMultiplier" ? "Click boost" : "Passive boost"} / ${boost.value}x</span>
+        <div class="card-title">${boost.name}</div>
+        <p class="card-copy">${boost.copy}</p>
+      </div>
+      <button class="buy-button ${isOwned ? "is-owned" : ""}" type="button" ${isOwned || state.money < boost.cost ? "disabled" : ""}>
+        ${isOwned ? "Active" : formatMoney(boost.cost)}
+      </button>
+    `;
+
+    card.querySelector("button").addEventListener("click", () => buyBoost(boost));
+    elements.boostList.append(card);
+  });
+};
+
 const render = () => {
   const currentLevel = clickLevels[state.clickLevel];
   const nextLevel = clickLevels[state.clickLevel + 1];
   const perSecond = getPerSecond();
+  const clickValue = getClickValue();
 
   elements.money.textContent = formatMoney(state.money);
-  elements.perClick.textContent = formatMoney(currentLevel.value);
+  elements.perClick.textContent = formatMoney(clickValue);
   elements.perSecond.textContent = `${formatMoney(perSecond)}/s`;
   elements.tierName.textContent = currentLevel.name;
   elements.clickLevelName.textContent = currentLevel.name;
-  elements.preachValue.textContent = `+${formatMoney(currentLevel.value)} honorarium`;
+  elements.preachValue.textContent = `+${formatMoney(clickValue)} honorarium`;
 
   if (nextLevel) {
     elements.nextUpgradeName.textContent = nextLevel.name;
@@ -223,6 +295,7 @@ const render = () => {
   renderCharacter();
   renderLevels();
   renderDroppers();
+  renderBoosts();
 };
 
 const earn = (amount) => {
@@ -249,11 +322,32 @@ function buyDropper(dropper) {
   render();
 }
 
+function buyBoost(boost) {
+  if (state.ownedBoosts.has(boost.id) || state.money < boost.cost) return;
+
+  state.money -= boost.cost;
+  state.ownedBoosts.add(boost.id);
+  addActivity(`${boost.name} is active.`, "Boost");
+  render();
+}
+
+let pressTimeout;
+
+const pulseClicker = () => {
+  clearTimeout(pressTimeout);
+  elements.preachButton.classList.add("is-pressing");
+  pressTimeout = setTimeout(() => {
+    elements.preachButton.classList.remove("is-pressing");
+  }, 150);
+};
+
 elements.preachButton.addEventListener("click", (event) => {
   const currentLevel = clickLevels[state.clickLevel];
-  earn(currentLevel.value);
-  createFloat(currentLevel.value, event);
-  addActivity(`Spoke at ${currentLevel.name} for ${formatMoney(currentLevel.value)}.`, "Honorarium");
+  const clickValue = getClickValue();
+  pulseClicker();
+  earn(clickValue);
+  createFloat(clickValue, event);
+  addActivity(`Spoke at ${currentLevel.name} for ${formatMoney(clickValue)}.`, "Honorarium");
   render();
 });
 

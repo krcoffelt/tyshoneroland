@@ -55,11 +55,11 @@ a {
 
 .game-hero {
   position: relative;
-  min-height: 82svh;
+  min-height: clamp(260px, 34svh, 420px);
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: end;
-  padding: 24px clamp(18px, 4vw, 64px) clamp(36px, 7vw, 92px);
+  padding: 96px clamp(18px, 4vw, 64px) clamp(22px, 4vw, 42px);
   overflow: hidden;
 }
 
@@ -143,7 +143,7 @@ h2,
 }
 
 .hero-copy {
-  width: min(980px, 100%);
+  width: min(760px, 100%);
   animation: rise 760ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -163,7 +163,7 @@ p {
 h1 {
   max-width: 8ch;
   margin-bottom: 18px;
-  font-size: clamp(5rem, 14vw, 15rem);
+  font-size: clamp(4.4rem, 8.4vw, 8.8rem);
   line-height: 0.84;
 }
 
@@ -185,8 +185,8 @@ h1 {
 }
 
 .hud div {
-  min-height: 104px;
-  padding: 18px clamp(16px, 3vw, 36px);
+  min-height: 68px;
+  padding: 10px clamp(14px, 2.4vw, 28px);
   border-right: 1px solid rgba(251, 247, 242, 0.16);
 }
 
@@ -214,16 +214,17 @@ h1 {
 }
 
 .arena,
-.shop-grid {
+.game-board {
   width: min(1360px, calc(100vw - 36px));
   margin: 0 auto;
 }
 
-.arena {
+.game-board {
   display: grid;
-  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+  grid-template-columns: minmax(360px, 0.9fr) minmax(380px, 1fr) minmax(280px, 0.58fr);
   gap: 14px;
-  padding: clamp(20px, 4vw, 52px) 0 14px;
+  align-items: start;
+  padding: 16px 0 clamp(32px, 6vw, 72px);
 }
 
 .clicker-panel,
@@ -236,7 +237,7 @@ h1 {
 }
 
 .clicker-panel {
-  padding: clamp(20px, 3.5vw, 44px);
+  padding: clamp(16px, 2vw, 28px);
   background: var(--olive);
 }
 
@@ -245,18 +246,18 @@ h1 {
   align-items: end;
   justify-content: space-between;
   gap: 18px;
-  margin-bottom: 22px;
+  margin-bottom: 14px;
 }
 
 .panel-head h2 {
   margin: 0;
-  font-size: clamp(2.7rem, 5.4vw, 7rem);
+  font-size: clamp(2rem, 3.1vw, 3.9rem);
   line-height: 0.84;
 }
 
 .clicker-stage {
   display: grid;
-  grid-template-columns: minmax(180px, 0.44fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(14px, 2vw, 24px);
   align-items: stretch;
 }
@@ -265,7 +266,7 @@ h1 {
   position: relative;
   display: grid;
   place-items: end center;
-  min-height: clamp(260px, 26vw, 380px);
+  min-height: clamp(150px, 15vw, 210px);
   margin: 0;
   overflow: hidden;
   border: 2px solid rgba(251, 247, 242, 0.22);
@@ -293,14 +294,16 @@ h1 {
   object-fit: contain;
   object-position: center bottom;
   image-rendering: pixelated;
-  transform: translateY(3%);
+  transform: translateY(3%) scale(0.78);
   transform-origin: bottom center;
   transition: transform 160ms ease;
 }
 
 .clicker-stage:has(.preach-button:hover) .character-card img,
-.clicker-stage:has(.preach-button:focus-visible) .character-card img {
-  transform: translateY(1%) scale(1.03);
+.clicker-stage:has(.preach-button:focus-visible) .character-card img,
+.clicker-stage:has(.preach-button:active) .character-card img,
+.clicker-stage:has(.preach-button.is-pressing) .character-card img {
+  transform: translateY(1%) scale(0.82);
 }
 
 .preach-button {
@@ -309,7 +312,7 @@ h1 {
   align-content: center;
   justify-items: center;
   width: 100%;
-  min-height: clamp(180px, 23vw, 300px);
+  min-height: clamp(150px, 16vw, 220px);
   padding: 24px;
   overflow: hidden;
   border: 0;
@@ -318,9 +321,9 @@ h1 {
   color: var(--ink);
   container-type: inline-size;
   text-align: center;
-  box-shadow: inset 0 -12px 0 rgba(7, 17, 18, 0.22), 0 26px 70px rgba(18, 152, 242, 0.28);
+  box-shadow: inset 0 -18px 0 rgba(7, 17, 18, 0.25), 0 26px 70px rgba(18, 152, 242, 0.28);
   transform: translateY(0);
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition: transform 90ms ease, box-shadow 90ms ease, filter 90ms ease;
 }
 
 .preach-button::before {
@@ -334,10 +337,20 @@ h1 {
   transition: transform 220ms ease;
 }
 
+.preach-button::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 2px solid rgba(251, 247, 242, 0);
+  border-radius: 8px;
+  transform: scale(0.98);
+  transition: border-color 90ms ease, transform 90ms ease;
+}
+
 .preach-button:hover,
 .preach-button:focus-visible {
   transform: translateY(-3px);
-  box-shadow: inset 0 -12px 0 rgba(7, 17, 18, 0.22), 0 30px 90px rgba(18, 152, 242, 0.34);
+  box-shadow: inset 0 -18px 0 rgba(7, 17, 18, 0.25), 0 30px 90px rgba(18, 152, 242, 0.34);
 }
 
 .preach-button:hover::before,
@@ -345,8 +358,22 @@ h1 {
   transform: translateX(8%) rotate(8deg);
 }
 
-.preach-button:active {
-  transform: translateY(5px) scale(0.99);
+.preach-button:active,
+.preach-button.is-pressing {
+  filter: saturate(1.12);
+  transform: translateY(10px) scale(0.982);
+  box-shadow: inset 0 7px 0 rgba(7, 17, 18, 0.24), 0 8px 18px rgba(18, 152, 242, 0.22);
+}
+
+.preach-button:active::before,
+.preach-button.is-pressing::before {
+  transform: translateX(16%) rotate(8deg) scale(0.96);
+}
+
+.preach-button:active::after,
+.preach-button.is-pressing::after {
+  border-color: rgba(251, 247, 242, 0.46);
+  transform: scale(0.94);
 }
 
 .preach-button span,
@@ -384,7 +411,7 @@ h1 {
 }
 
 .tier-meter {
-  margin-top: 20px;
+  margin-top: 14px;
 }
 
 .tier-meter-row {
@@ -419,7 +446,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  margin-top: 18px;
+  margin-top: 14px;
   padding: 14px;
   border-radius: 10px;
   background: rgba(7, 17, 18, 0.42);
@@ -460,7 +487,7 @@ h1 {
 
 .activity-panel,
 .shop-panel {
-  padding: clamp(18px, 2vw, 28px);
+  padding: clamp(14px, 1.5vw, 20px);
   background: var(--charcoal);
 }
 
@@ -472,8 +499,21 @@ h1 {
 .activity-panel h2,
 .shop-panel h2 {
   margin-bottom: 0;
-  font-size: clamp(2.6rem, 4vw, 5rem);
+  font-size: clamp(2rem, 2.8vw, 3.8rem);
   line-height: 0.86;
+}
+
+.shop-stack,
+.activity-panel {
+  position: sticky;
+  top: 92px;
+  max-height: calc(100svh - 108px);
+  overflow: auto;
+}
+
+.shop-stack {
+  display: grid;
+  gap: 12px;
 }
 
 .activity-list {
@@ -485,22 +525,15 @@ h1 {
 }
 
 .activity-list li {
-  padding: 12px 0;
+  padding: 10px 0;
   border-top: 1px solid rgba(251, 247, 242, 0.14);
   color: rgba(251, 247, 242, 0.84);
   font-weight: 750;
 }
 
-.shop-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  padding-bottom: clamp(32px, 6vw, 80px);
-}
-
 .card-list {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .shop-card {
@@ -508,7 +541,7 @@ h1 {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 14px;
   align-items: center;
-  padding: 16px;
+  padding: 12px;
   border: 1px solid rgba(251, 247, 242, 0.12);
   border-radius: 10px;
   background: rgba(251, 247, 242, 0.08);
@@ -525,18 +558,18 @@ h1 {
 .card-title {
   margin: 4px 0 4px;
   color: var(--clean);
-  font-size: clamp(1.45rem, 2.2vw, 2.7rem);
+  font-size: clamp(1.15rem, 1.45vw, 2rem);
   line-height: 0.9;
 }
 
 .card-copy {
   margin: 0;
   color: rgba(251, 247, 242, 0.66);
-  font-size: 0.92rem;
+  font-size: 0.84rem;
 }
 
 .buy-button {
-  min-width: 116px;
+  min-width: 96px;
   background: var(--cobalt);
 }
 
@@ -582,32 +615,38 @@ h1 {
 
 @media (max-width: 980px) {
   .game-hero {
-    min-height: 72svh;
+    min-height: 44svh;
     padding-top: 120px;
   }
 
-  .hud,
-  .arena,
-  .shop-grid {
+  .game-board {
     grid-template-columns: 1fr;
   }
 
   .hud {
     position: relative;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .hud div {
     min-height: auto;
-    border-right: 0;
+    border-right: 1px solid rgba(251, 247, 242, 0.14);
     border-bottom: 1px solid rgba(251, 247, 242, 0.14);
   }
 
-  .arena {
+  .hud div:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .game-board {
     width: min(760px, calc(100vw - 28px));
   }
 
-  .shop-grid {
-    width: min(760px, calc(100vw - 28px));
+  .shop-stack,
+  .activity-panel {
+    position: static;
+    max-height: none;
+    overflow: visible;
   }
 }
 
@@ -637,24 +676,28 @@ h1 {
     display: block;
   }
 
-  .clicker-stage,
   .upgrade-feature {
     display: block;
   }
 
+  .clicker-stage {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .preach-button {
+    order: -1;
+  }
+
   .character-card {
-    min-height: 300px;
-    margin-bottom: 12px;
+    min-height: 260px;
+    margin-top: 12px;
   }
 
   .panel-head h2,
   .activity-panel h2,
   .shop-panel h2 {
     font-size: clamp(2.7rem, 14vw, 4.6rem);
-  }
-
-  .preach-button {
-    min-height: 210px;
   }
 
   .preach-button span {
