@@ -3,7 +3,9 @@
     "images": "node scripts/generate-images.mjs",
     "minify:css": "cleancss -o styles.min.css styles.css",
     "minify:js": "terser script.js -c -m -o script.min.js",
-    "minify": "npm run minify:css && npm run minify:js",
+    "minify:tycoon:css": "cleancss -o tycoon.min.css tycoon.css",
+    "minify:tycoon:js": "terser tycoon.js -c -m -o tycoon.min.js",
+    "minify": "npm run minify:css && npm run minify:js && npm run minify:tycoon:css && npm run minify:tycoon:js",
     "build": "npm run images && npm run minify"
   },
   "devDependencies": {

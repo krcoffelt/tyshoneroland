@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Evangelist Tycoon | Tyshone Roland</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="A hidden evangelist tycoon clicker game where speaking invitations earn honorariums."
+    />
+    <meta name="theme-color" content="#071112" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/tycoon-character-starter-720.png" as="image" />
+    <link rel="stylesheet" href="tycoon.min.css" />
+  </head>
+  <body>
+    <main class="game-shell" id="main">
+      <section class="game-hero" aria-labelledby="game-title">
+        <div class="hero-bg" aria-hidden="true">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="
+                assets/responsive/tyshone-stage-wide-640.webp   640w,
+                assets/responsive/tyshone-stage-wide-960.webp   960w,
+                assets/responsive/tyshone-stage-wide-1280.webp 1280w,
+                assets/responsive/tyshone-stage-wide-1598.webp 1598w
+              "
+              sizes="100vw"
+            />
+            <img
+              src="assets/responsive/tyshone-stage-wide-1280.jpg"
+              srcset="
+                assets/responsive/tyshone-stage-wide-640.jpg   640w,
+                assets/responsive/tyshone-stage-wide-960.jpg   960w,
+                assets/responsive/tyshone-stage-wide-1280.jpg 1280w,
+                assets/responsive/tyshone-stage-wide-1598.jpg 1598w
+              "
+              sizes="100vw"
+              width="1598"
+              height="1608"
+              alt=""
+              fetchpriority="high"
+              decoding="async"
+            />
+          </picture>
+        </div>
+
+        <nav class="game-nav" aria-label="Game navigation">
+          <a class="brand" href="/">Tyshone Roland</a>
+          <span>Hidden Tycoon</span>
+        </nav>
+
+        <div class="hero-copy">
+          <p class="kicker">Evangelist Tycoon</p>
+          <h1 id="game-title">Preach. Earn. Build.</h1>
+          <p>Click to earn honorariums, buy upgrades, and build a speaking calendar that runs itself.</p>
+        </div>
+
+        <figure class="hero-character" aria-label="Evangelist tycoon character">
+          <img
+            data-character-image
+            src="assets/tycoon-character-starter-720.png"
+            width="720"
+            height="960"
+            alt="Starter pixel art evangelist holding a microphone and Bible"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+      </section>
+
+      <section class="hud" aria-label="Game stats">
+        <div>
+          <span>Honorariums</span>
+          <strong id="money">$0</strong>
+        </div>
+        <div>
+          <span>Per click</span>
+          <strong id="per-click">$1</strong>
+        </div>
+        <div>
+          <span>Per second</span>
+          <strong id="per-second">$0</strong>
+        </div>
+        <div>
+          <span>Speaking tier</span>
+          <strong id="tier-name">Local Outreach</strong>
+        </div>
+      </section>
+
+      <section class="arena" aria-label="Tycoon controls">
+        <article class="clicker-panel">
+          <div class="panel-head">
+            <p class="kicker">Main Clicker</p>
+            <h2 id="click-level-name">Local Outreach</h2>
+          </div>
+
+          <div class="clicker-stage">
+            <figure class="character-card" aria-label="Evangelist tycoon character">
+              <img
+                data-character-image
+                src="assets/tycoon-character-starter-720.png"
+                width="720"
+                height="960"
+                alt="Starter pixel art evangelist holding a microphone and Bible"
+                decoding="async"
+              />
+            </figure>
+
+            <button class="preach-button" id="preach-button" type="button">
+              <span>Preach</span>
+              <small id="preach-value">+$1 honorarium</small>
+            </button>
+          </div>
+
+          <div class="tier-meter" aria-label="Progress to next speaking tier">
+            <div class="tier-meter-row">
+              <span id="tier-progress-label">Next: Youth Night</span>
+              <span id="tier-progress-value">$0 / $500</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-fill" id="tier-meter-fill"></div>
+            </div>
+          </div>
+
+          <div class="upgrade-feature">
+            <div>
+              <span>Next click upgrade</span>
+              <strong id="next-upgrade-name">Youth Night</strong>
+            </div>
+            <button id="buy-click-upgrade" type="button">Buy for $75</button>
+          </div>
+        </article>
+
+        <aside class="activity-panel" aria-label="Recent activity">
+          <div class="panel-head">
+            <p class="kicker">Live Feed</p>
+            <h2>Activity</h2>
+          </div>
+          <ol class="activity-list" id="activity-list"></ol>
+        </aside>
+      </section>
+
+      <section class="shop-grid" aria-label="Tycoon shop">
+        <article class="shop-panel">
+          <div class="panel-head">
+            <p class="kicker">Click Levels</p>
+            <h2>Speaking Power</h2>
+          </div>
+          <div class="card-list" id="level-list"></div>
+        </article>
+
+        <article class="shop-panel">
+          <div class="panel-head">
+            <p class="kicker">Droppers</p>
+            <h2>Passive Flow</h2>
+          </div>
+          <div class="card-list" id="dropper-list"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="tycoon.min.js" defer></script>
+  </body>
+</html>
