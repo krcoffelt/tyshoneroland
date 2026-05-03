@@ -65,6 +65,10 @@
           <strong id="money">$0</strong>
         </div>
         <div>
+          <span>Reputation</span>
+          <strong id="reputation">0</strong>
+        </div>
+        <div>
           <span>Per click</span>
           <strong id="per-click">$1</strong>
         </div>
@@ -120,23 +124,47 @@
             </div>
             <button id="buy-click-upgrade" type="button">Buy for $75</button>
           </div>
+
+          <section class="objectives-panel" aria-label="Objectives">
+            <div class="mini-head">
+              <p class="kicker">Objectives</p>
+              <strong id="objective-progress">0 / 0</strong>
+            </div>
+            <div class="objective-list" id="objective-list"></div>
+          </section>
         </article>
 
-        <section class="shop-stack" aria-label="Tycoon shop">
-          <article class="shop-panel">
-            <div class="panel-head">
-              <p class="kicker">Click Levels</p>
-              <h2>Bookings</h2>
-            </div>
-            <div class="card-list compact-list" id="level-list"></div>
-          </article>
+        <div class="mobile-tabs" role="tablist" aria-label="Game views">
+          <button class="tab-button is-active" type="button" data-tab-target="build">Build</button>
+          <button class="tab-button" type="button" data-tab-target="calendar">Calendar</button>
+          <button class="tab-button" type="button" data-tab-target="boosts">Boosts</button>
+          <button class="tab-button" type="button" data-tab-target="feed">Feed</button>
+        </div>
 
+        <section class="calendar-panel" aria-label="Speaking calendar">
+          <div class="panel-head">
+            <p class="kicker">Speaking Calendar</p>
+            <h2>Events</h2>
+          </div>
+
+          <div class="active-event" id="active-event">
+            <span>No active event</span>
+            <strong>Book a date</strong>
+            <div class="meter-track">
+              <div class="meter-fill" id="event-meter-fill"></div>
+            </div>
+          </div>
+
+          <div class="event-list" id="event-list"></div>
+        </section>
+
+        <section class="control-stack" aria-label="Tycoon controls and shop">
           <article class="shop-panel">
             <div class="panel-head">
-              <p class="kicker">Droppers</p>
-              <h2>Passive Flow</h2>
+              <p class="kicker">Tycoon Buildout</p>
+              <h2>Build</h2>
             </div>
-            <div class="card-list compact-list" id="dropper-list"></div>
+            <div class="card-list compact-list" id="building-list"></div>
           </article>
 
           <article class="shop-panel">
@@ -146,15 +174,23 @@
             </div>
             <div class="card-list compact-list" id="boost-list"></div>
           </article>
-        </section>
 
-        <aside class="activity-panel" aria-label="Recent activity">
-          <div class="panel-head">
-            <p class="kicker">Live Feed</p>
-            <h2>Activity</h2>
-          </div>
-          <ol class="activity-list" id="activity-list"></ol>
-        </aside>
+          <article class="shop-panel">
+            <div class="panel-head">
+              <p class="kicker">Click Levels</p>
+              <h2>Bookings</h2>
+            </div>
+            <div class="card-list compact-list" id="level-list"></div>
+          </article>
+
+          <aside class="activity-panel" aria-label="Recent activity">
+            <div class="panel-head">
+              <p class="kicker">Live Feed</p>
+              <h2>Activity</h2>
+            </div>
+            <ol class="activity-list" id="activity-list"></ol>
+          </aside>
+        </section>
       </section>
     </main>
 

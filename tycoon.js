@@ -7,76 +7,240 @@ const clickLevels = [
   { name: "Elevation Church", value: 2500, cost: 95000 }
 ];
 
-const droppers = [
+const buildings = [
   {
-    id: "invite-requests",
-    name: "Highlands Students Invites",
-    cost: 60,
-    income: 1,
-    copy: "Student ministry invitations start coming in."
+    id: "invite-desk",
+    name: "Invite Desk",
+    baseCost: 55,
+    baseIncome: 1,
+    maxLevel: 8,
+    costGrowth: 1.72,
+    incomeGrowth: 1.65,
+    requireRep: 0,
+    copy: "Tracks calls, DMs, and open student ministry dates."
   },
   {
-    id: "travel-team",
-    name: "Forward Conference",
-    cost: 300,
-    income: 6,
-    copy: "Student conference momentum picks up."
+    id: "media-team",
+    name: "Media Team",
+    baseCost: 260,
+    baseIncome: 5,
+    maxLevel: 7,
+    costGrowth: 1.82,
+    incomeGrowth: 1.72,
+    requireRep: 4,
+    copy: "Clips sermons so churches keep finding the ministry."
   },
   {
-    id: "media-clips",
-    name: "Passion Conference Clips",
-    cost: 1500,
-    income: 30,
-    copy: "Message clips keep new invites moving."
+    id: "travel-coordinator",
+    name: "Travel Coordinator",
+    baseCost: 1250,
+    baseIncome: 22,
+    maxLevel: 7,
+    costGrowth: 1.9,
+    incomeGrowth: 1.78,
+    requireRep: 10,
+    copy: "Handles routes, flights, lodging, and weekly follow-up."
+  },
+  {
+    id: "booking-office",
+    name: "Booking Office",
+    baseCost: 5200,
+    baseIncome: 95,
+    maxLevel: 6,
+    costGrowth: 2,
+    incomeGrowth: 1.86,
+    requireRep: 24,
+    copy: "Turns warm invitations into confirmed ministry weekends."
   },
   {
     id: "conference-circuit",
-    name: "VOUS Conference Circuit",
-    cost: 9000,
-    income: 180,
-    copy: "Leader and young adult events stack the calendar."
+    name: "Conference Circuit",
+    baseCost: 21000,
+    baseIncome: 420,
+    maxLevel: 5,
+    costGrowth: 2.1,
+    incomeGrowth: 1.95,
+    requireRep: 55,
+    copy: "Stacks youth, leader, and young adult conference dates."
   },
   {
-    id: "global-crusade-calendar",
-    name: "Gateway Conference Calendar",
-    cost: 50000,
-    income: 1200,
-    copy: "Large church conference invitations go national."
+    id: "global-outreach-hub",
+    name: "Global Outreach Hub",
+    baseCost: 90000,
+    baseIncome: 2100,
+    maxLevel: 4,
+    costGrowth: 2.25,
+    incomeGrowth: 2,
+    requireRep: 110,
+    copy: "Coordinates national and global outreach opportunities."
   }
 ];
 
 const boosts = [
   {
-    id: "message-archive",
+    id: "sermon-clip-vault",
     name: "Sermon Clip Vault",
     cost: 250,
+    requireRep: 0,
     type: "clickMultiplier",
     value: 1.5,
-    copy: "Every click earns 1.5x honorariums."
+    copy: "Click honorariums earn 1.5x."
   },
   {
     id: "booking-crm",
     name: "Booking CRM",
     cost: 1200,
+    requireRep: 6,
     type: "passiveMultiplier",
     value: 2,
-    copy: "All passive systems produce 2x faster."
+    copy: "All buildout income runs 2x faster."
   },
   {
-    id: "prayer-team",
-    name: "Prayer Team",
-    cost: 6500,
-    type: "clickMultiplier",
-    value: 2,
-    copy: "Preaching clicks double again."
+    id: "testimony-reels",
+    name: "Testimony Reels",
+    cost: 4200,
+    requireRep: 14,
+    type: "eventMultiplier",
+    value: 1.5,
+    copy: "Speaking calendar payouts increase by 1.5x."
+  },
+  {
+    id: "intercession-team",
+    name: "Intercession Team",
+    cost: 9500,
+    requireRep: 28,
+    type: "reputationMultiplier",
+    value: 1.5,
+    copy: "Events and objectives award 1.5x reputation."
   },
   {
     id: "road-manager",
     name: "Road Manager",
     cost: 26000,
+    requireRep: 50,
     type: "passiveMultiplier",
     value: 3,
-    copy: "Passive conference income triples."
+    copy: "Buildout income triples again."
+  },
+  {
+    id: "stadium-production",
+    name: "Stadium Production",
+    cost: 85000,
+    requireRep: 95,
+    type: "clickMultiplier",
+    value: 2,
+    copy: "Preaching clicks double again."
+  }
+];
+
+const speakingEvents = [
+  {
+    id: "motion-students-night",
+    name: "Motion Students Night",
+    requireLevel: 0,
+    requireRep: 0,
+    duration: 20,
+    payout: 120,
+    reputation: 4,
+    copy: "A starter student ministry invitation."
+  },
+  {
+    id: "forward-conference",
+    name: "Forward Conference",
+    requireLevel: 1,
+    requireRep: 4,
+    duration: 35,
+    payout: 500,
+    reputation: 8,
+    copy: "A larger youth conference slot."
+  },
+  {
+    id: "passion-conference",
+    name: "Passion Conference",
+    requireLevel: 2,
+    requireRep: 14,
+    duration: 50,
+    payout: 1800,
+    reputation: 16,
+    copy: "A high-visibility college and young adult moment."
+  },
+  {
+    id: "celebration-church",
+    name: "Celebration Church",
+    requireLevel: 2,
+    requireRep: 24,
+    duration: 65,
+    payout: 5200,
+    reputation: 24,
+    copy: "A major Sunday ministry opportunity."
+  },
+  {
+    id: "gateway-church",
+    name: "Gateway Church",
+    requireLevel: 3,
+    requireRep: 45,
+    duration: 80,
+    payout: 14000,
+    reputation: 36,
+    copy: "A national church invitation."
+  },
+  {
+    id: "transformation-church",
+    name: "Transformation Church",
+    requireLevel: 4,
+    requireRep: 75,
+    duration: 95,
+    payout: 36000,
+    reputation: 52,
+    copy: "A culture-shaping ministry weekend."
+  },
+  {
+    id: "elevation-church",
+    name: "Elevation Church",
+    requireLevel: 5,
+    requireRep: 130,
+    duration: 120,
+    payout: 120000,
+    reputation: 90,
+    copy: "A top-tier arena-level opportunity."
+  }
+];
+
+const objectives = [
+  {
+    id: "first-100",
+    title: "Earn first $100",
+    copy: "Build early momentum.",
+    reward: { money: 50, reputation: 2 },
+    isComplete: () => state.totalEarned >= 100
+  },
+  {
+    id: "first-building",
+    title: "Buy first building",
+    copy: "Start passive income.",
+    reward: { money: 120, reputation: 3 },
+    isComplete: () => getTotalBuildingLevels() >= 1
+  },
+  {
+    id: "first-event",
+    title: "Finish first event",
+    copy: "Prove the calendar works.",
+    reward: { money: 350, reputation: 5 },
+    isComplete: () => state.completedEventCount >= 1
+  },
+  {
+    id: "hundred-per-second",
+    title: "Reach $100/s",
+    copy: "Make the ministry engine move.",
+    reward: { money: 2400, reputation: 14 },
+    isComplete: () => getPerSecond() >= 100
+  },
+  {
+    id: "unlock-elevation",
+    title: "Unlock Elevation Church",
+    copy: "Reach the highest speaking tier.",
+    reward: { money: 25000, reputation: 35 },
+    isComplete: () => state.clickLevel >= 5
   }
 ];
 
@@ -105,14 +269,21 @@ const characterStages = [
 
 const state = {
   money: 0,
+  reputation: 0,
   totalEarned: 0,
   clickLevel: 0,
-  ownedDroppers: new Set(),
-  ownedBoosts: new Set()
+  buildings: Object.fromEntries(buildings.map((building) => [building.id, 0])),
+  ownedBoosts: new Set(),
+  completedObjectives: new Set(),
+  completedEventIds: new Set(),
+  completedEventCount: 0,
+  activeEvent: null,
+  activeTab: "build"
 };
 
 const elements = {
   money: document.querySelector("#money"),
+  reputation: document.querySelector("#reputation"),
   perClick: document.querySelector("#per-click"),
   perSecond: document.querySelector("#per-second"),
   tierName: document.querySelector("#tier-name"),
@@ -124,10 +295,17 @@ const elements = {
   tierProgressLabel: document.querySelector("#tier-progress-label"),
   tierProgressValue: document.querySelector("#tier-progress-value"),
   tierMeterFill: document.querySelector("#tier-meter-fill"),
+  eventMeterFill: document.querySelector("#event-meter-fill"),
+  activeEvent: document.querySelector("#active-event"),
+  objectiveProgress: document.querySelector("#objective-progress"),
+  objectiveList: document.querySelector("#objective-list"),
+  eventList: document.querySelector("#event-list"),
   levelList: document.querySelector("#level-list"),
-  dropperList: document.querySelector("#dropper-list"),
+  buildingList: document.querySelector("#building-list"),
   boostList: document.querySelector("#boost-list"),
   activityList: document.querySelector("#activity-list"),
+  tabButtons: document.querySelectorAll("[data-tab-target]"),
+  tabPanels: document.querySelectorAll("[data-tab-panel]"),
   characterImages: document.querySelectorAll("[data-character-image]")
 };
 
@@ -135,6 +313,11 @@ const formatMoney = (value) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
+    maximumFractionDigits: 0
+  }).format(Math.floor(value));
+
+const formatNumber = (value) =>
+  new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 0
   }).format(Math.floor(value));
 
@@ -146,25 +329,53 @@ const getBoostMultiplier = (type) =>
 
 const getClickValue = () => Math.floor(clickLevels[state.clickLevel].value * getBoostMultiplier("clickMultiplier"));
 
-const getPerSecond = () =>
-  Math.floor(
-    droppers.reduce((total, dropper) => total + (state.ownedDroppers.has(dropper.id) ? dropper.income : 0), 0) *
-      getBoostMultiplier("passiveMultiplier")
-  );
+const getBuildingLevel = (building) => state.buildings[building.id] || 0;
+
+const getBuildingCost = (building) => {
+  const level = getBuildingLevel(building);
+  if (level >= building.maxLevel) return null;
+  return Math.floor(building.baseCost * building.costGrowth ** level);
+};
+
+const getBuildingIncome = (building, level = getBuildingLevel(building)) => {
+  if (!level) return 0;
+  return Math.floor(building.baseIncome * level * building.incomeGrowth ** (level - 1));
+};
+
+const getBasePerSecond = () =>
+  buildings.reduce((total, building) => total + getBuildingIncome(building), 0);
+
+const getPerSecond = () => Math.floor(getBasePerSecond() * getBoostMultiplier("passiveMultiplier"));
+
+const getTotalBuildingLevels = () =>
+  buildings.reduce((total, building) => total + getBuildingLevel(building), 0);
+
+const getEventReward = (event) => ({
+  money: Math.floor(event.payout * getBoostMultiplier("eventMultiplier")),
+  reputation: Math.floor(event.reputation * getBoostMultiplier("reputationMultiplier"))
+});
+
+const getObjectiveReward = (objective) => ({
+  money: objective.reward.money || 0,
+  reputation: Math.floor((objective.reward.reputation || 0) * getBoostMultiplier("reputationMultiplier"))
+});
 
 const getCharacterStage = () =>
   characterStages.reduce((active, stage) => (state.clickLevel >= stage.minLevel ? stage : active), characterStages[0]);
 
-const renderCharacter = () => {
-  const stage = getCharacterStage();
+const isBuildingUnlocked = (building) => state.reputation >= building.requireRep;
 
-  elements.characterImages.forEach((image) => {
-    if (image.getAttribute("src") !== stage.src) {
-      image.setAttribute("src", stage.src);
-    }
+const isEventUnlocked = (event) => state.clickLevel >= event.requireLevel && state.reputation >= event.requireRep;
 
-    image.setAttribute("alt", stage.alt);
-  });
+const isBoostUnlocked = (boost) => state.reputation >= boost.requireRep;
+
+const earn = (amount) => {
+  state.money += amount;
+  state.totalEarned += amount;
+};
+
+const addReputation = (amount) => {
+  state.reputation += amount;
 };
 
 const addActivity = (message, label = "Update") => {
@@ -172,7 +383,7 @@ const addActivity = (message, label = "Update") => {
   item.innerHTML = `<span>${label}</span>${message}`;
   elements.activityList.prepend(item);
 
-  while (elements.activityList.children.length > 6) {
+  while (elements.activityList.children.length > 8) {
     elements.activityList.lastElementChild.remove();
   }
 };
@@ -187,6 +398,18 @@ const createFloat = (amount, event) => {
   float.addEventListener("animationend", () => float.remove(), { once: true });
 };
 
+const renderCharacter = () => {
+  const stage = getCharacterStage();
+
+  elements.characterImages.forEach((image) => {
+    if (image.getAttribute("src") !== stage.src) {
+      image.setAttribute("src", stage.src);
+    }
+
+    image.setAttribute("alt", stage.alt);
+  });
+};
+
 const renderLevels = () => {
   elements.levelList.innerHTML = "";
 
@@ -199,7 +422,7 @@ const renderLevels = () => {
       <div>
         <span class="card-meta">Level ${index + 1} / ${formatMoney(level.value)} per click</span>
         <div class="card-title">${level.name}</div>
-        <p class="card-copy">${index === 0 ? "Starter preaching invite." : `Upgrade cost: ${formatMoney(level.cost)}.`}</p>
+        <p class="card-copy">${index === 0 ? "Starter invite." : `Upgrade cost: ${formatMoney(level.cost)}.`}</p>
       </div>
       <button class="buy-button ${isOwned ? "is-owned" : ""}" type="button" ${!isNext || state.money < level.cost ? "disabled" : ""}>
         ${isOwned ? "Owned" : isNext ? formatMoney(level.cost) : "Locked"}
@@ -212,26 +435,36 @@ const renderLevels = () => {
   });
 };
 
-const renderDroppers = () => {
-  elements.dropperList.innerHTML = "";
+const renderBuildings = () => {
+  elements.buildingList.innerHTML = "";
 
-  droppers.forEach((dropper) => {
-    const isOwned = state.ownedDroppers.has(dropper.id);
+  buildings.forEach((building) => {
+    const level = getBuildingLevel(building);
+    const cost = getBuildingCost(building);
+    const isUnlocked = isBuildingUnlocked(building);
+    const isMaxed = level >= building.maxLevel;
+    const income = getBuildingIncome(building);
+    const nextIncome = isMaxed ? income : getBuildingIncome(building, level + 1);
+    const canBuy = isUnlocked && !isMaxed && state.money >= cost;
     const card = document.createElement("div");
-    card.className = `shop-card ${isOwned ? "is-owned" : ""}`;
+    card.className = `shop-card build-card ${level ? "is-owned" : ""} ${canBuy ? "is-next" : ""}`;
     card.innerHTML = `
       <div>
-        <span class="card-meta">+${formatMoney(dropper.income)} per second</span>
-        <div class="card-title">${dropper.name}</div>
-        <p class="card-copy">${dropper.copy}</p>
+        <span class="card-meta">Level ${level} / ${building.maxLevel} / ${formatMoney(income)}/s now</span>
+        <div class="card-title">${building.name}</div>
+        <p class="card-copy">${building.copy}</p>
+        <div class="card-progress">
+          <span style="width: ${(level / building.maxLevel) * 100}%"></span>
+        </div>
+        <p class="card-copy">${isMaxed ? "Maxed out." : `Next: ${formatMoney(nextIncome)}/s. ${isUnlocked ? "" : `Needs ${building.requireRep} reputation.`}`}</p>
       </div>
-      <button class="buy-button ${isOwned ? "is-owned" : ""}" type="button" ${isOwned || state.money < dropper.cost ? "disabled" : ""}>
-        ${isOwned ? "Running" : formatMoney(dropper.cost)}
+      <button class="buy-button" type="button" ${!canBuy ? "disabled" : ""}>
+        ${isMaxed ? "Max" : isUnlocked ? formatMoney(cost) : "Locked"}
       </button>
     `;
 
-    card.querySelector("button").addEventListener("click", () => buyDropper(dropper));
-    elements.dropperList.append(card);
+    card.querySelector("button").addEventListener("click", () => buyBuilding(building));
+    elements.buildingList.append(card);
   });
 };
 
@@ -240,21 +473,120 @@ const renderBoosts = () => {
 
   boosts.forEach((boost) => {
     const isOwned = state.ownedBoosts.has(boost.id);
+    const isUnlocked = isBoostUnlocked(boost);
+    const canBuy = isUnlocked && !isOwned && state.money >= boost.cost;
+    const label = {
+      clickMultiplier: "Click",
+      passiveMultiplier: "Passive",
+      eventMultiplier: "Events",
+      reputationMultiplier: "Reputation"
+    }[boost.type];
     const card = document.createElement("div");
-    card.className = `shop-card ${isOwned ? "is-owned" : ""}`;
+    card.className = `shop-card ${isOwned ? "is-owned" : ""} ${canBuy ? "is-next" : ""}`;
     card.innerHTML = `
       <div>
-        <span class="card-meta">${boost.type === "clickMultiplier" ? "Click boost" : "Passive boost"} / ${boost.value}x</span>
+        <span class="card-meta">${label} boost / ${boost.value}x</span>
         <div class="card-title">${boost.name}</div>
-        <p class="card-copy">${boost.copy}</p>
+        <p class="card-copy">${boost.copy} ${isUnlocked ? "" : `Needs ${boost.requireRep} reputation.`}</p>
       </div>
-      <button class="buy-button ${isOwned ? "is-owned" : ""}" type="button" ${isOwned || state.money < boost.cost ? "disabled" : ""}>
-        ${isOwned ? "Active" : formatMoney(boost.cost)}
+      <button class="buy-button ${isOwned ? "is-owned" : ""}" type="button" ${!canBuy ? "disabled" : ""}>
+        ${isOwned ? "Active" : isUnlocked ? formatMoney(boost.cost) : "Locked"}
       </button>
     `;
 
     card.querySelector("button").addEventListener("click", () => buyBoost(boost));
     elements.boostList.append(card);
+  });
+};
+
+const renderEvents = () => {
+  elements.eventList.innerHTML = "";
+
+  speakingEvents.forEach((event) => {
+    const isUnlocked = isEventUnlocked(event);
+    const isActive = state.activeEvent?.id === event.id;
+    const isComplete = state.completedEventIds.has(event.id);
+    const reward = getEventReward(event);
+    const canStart = isUnlocked && !state.activeEvent;
+    const card = document.createElement("div");
+    card.className = `event-card ${isActive ? "is-active" : ""} ${canStart ? "is-next" : ""}`;
+    card.innerHTML = `
+      <div>
+        <span class="card-meta">${event.duration}s / ${formatMoney(reward.money)} / +${formatNumber(reward.reputation)} rep</span>
+        <div class="card-title">${event.name}</div>
+        <p class="card-copy">${event.copy}</p>
+        <p class="card-copy">${isUnlocked ? (isComplete ? "Repeatable after completion." : "Ready when the calendar is open.") : `Needs ${clickLevels[event.requireLevel].name} and ${event.requireRep} reputation.`}</p>
+      </div>
+      <button class="buy-button" type="button" ${!canStart ? "disabled" : ""}>
+        ${isActive ? "Live" : isUnlocked ? "Start" : "Locked"}
+      </button>
+    `;
+
+    card.querySelector("button").addEventListener("click", () => startEvent(event));
+    elements.eventList.append(card);
+  });
+};
+
+const renderActiveEvent = () => {
+  if (!state.activeEvent) {
+    elements.activeEvent.innerHTML = `
+      <span>No active event</span>
+      <strong>Book a date</strong>
+      <div class="meter-track"><div class="meter-fill" id="event-meter-fill" style="width: 0%"></div></div>
+    `;
+    elements.eventMeterFill = elements.activeEvent.querySelector("#event-meter-fill");
+    return;
+  }
+
+  const event = speakingEvents.find((item) => item.id === state.activeEvent.id);
+  const elapsed = event.duration - state.activeEvent.remaining;
+  const progress = Math.max(0, Math.min(1, elapsed / event.duration));
+  elements.activeEvent.innerHTML = `
+    <span>Live now</span>
+    <strong>${event.name}</strong>
+    <p>${state.activeEvent.remaining}s remaining</p>
+    <div class="meter-track"><div class="meter-fill" id="event-meter-fill" style="width: ${progress * 100}%"></div></div>
+  `;
+  elements.eventMeterFill = elements.activeEvent.querySelector("#event-meter-fill");
+};
+
+const renderObjectives = () => {
+  const completeCount = state.completedObjectives.size;
+  elements.objectiveProgress.textContent = `${completeCount} / ${objectives.length}`;
+  elements.objectiveList.innerHTML = "";
+
+  objectives.forEach((objective) => {
+    const isComplete = state.completedObjectives.has(objective.id);
+    const reward = getObjectiveReward(objective);
+    const item = document.createElement("div");
+    item.className = `objective-item ${isComplete ? "is-complete" : ""}`;
+    item.innerHTML = `
+      <span>${isComplete ? "Done" : "Open"}</span>
+      <strong>${objective.title}</strong>
+      <p>${objective.copy} Reward: ${formatMoney(reward.money)} / +${formatNumber(reward.reputation)} rep.</p>
+    `;
+    elements.objectiveList.append(item);
+  });
+};
+
+const renderTabs = () => {
+  const panelMap = {
+    build: [elements.buildingList.closest(".shop-panel"), elements.levelList.closest(".shop-panel")],
+    calendar: [elements.eventList.closest(".calendar-panel")],
+    boosts: [elements.boostList.closest(".shop-panel")],
+    feed: [elements.activityList.closest(".activity-panel")]
+  };
+
+  elements.tabButtons.forEach((button) => {
+    const isActive = button.dataset.tabTarget === state.activeTab;
+    button.classList.toggle("is-active", isActive);
+  });
+
+  Object.entries(panelMap).forEach(([key, panels]) => {
+    panels.forEach((panel) => {
+      panel.dataset.tabPanel = key;
+      panel.classList.toggle("is-tab-active", key === state.activeTab);
+    });
   });
 };
 
@@ -265,6 +597,7 @@ const render = () => {
   const clickValue = getClickValue();
 
   elements.money.textContent = formatMoney(state.money);
+  elements.reputation.textContent = formatNumber(state.reputation);
   elements.perClick.textContent = formatMoney(clickValue);
   elements.perSecond.textContent = `${formatMoney(perSecond)}/s`;
   elements.tierName.textContent = currentLevel.name;
@@ -275,32 +608,44 @@ const render = () => {
     elements.nextUpgradeName.textContent = nextLevel.name;
     elements.buyClickUpgrade.textContent = `Buy for ${formatMoney(nextLevel.cost)}`;
     elements.buyClickUpgrade.disabled = state.money < nextLevel.cost;
-  } else {
-    elements.nextUpgradeName.textContent = "Maxed Out";
-    elements.buyClickUpgrade.textContent = "Max Level";
-    elements.buyClickUpgrade.disabled = true;
-  }
-
-  if (nextLevel) {
     const progress = Math.max(0, Math.min(1, state.money / nextLevel.cost));
     elements.tierProgressLabel.textContent = `Next: ${nextLevel.name}`;
     elements.tierProgressValue.textContent = `${formatMoney(state.money)} / ${formatMoney(nextLevel.cost)}`;
     elements.tierMeterFill.style.width = `${progress * 100}%`;
   } else {
+    elements.nextUpgradeName.textContent = "Maxed Out";
+    elements.buyClickUpgrade.textContent = "Max Level";
+    elements.buyClickUpgrade.disabled = true;
     elements.tierProgressLabel.textContent = "Top speaking tier reached";
     elements.tierProgressValue.textContent = formatMoney(state.money);
     elements.tierMeterFill.style.width = "100%";
   }
 
   renderCharacter();
-  renderLevels();
-  renderDroppers();
+  renderObjectives();
+  renderActiveEvent();
+  renderEvents();
+  renderBuildings();
   renderBoosts();
+  renderLevels();
+  renderTabs();
 };
 
-const earn = (amount) => {
-  state.money += amount;
-  state.totalEarned += amount;
+const checkObjectives = () => {
+  let completedAny = false;
+
+  objectives.forEach((objective) => {
+    if (state.completedObjectives.has(objective.id) || !objective.isComplete()) return;
+
+    const reward = getObjectiveReward(objective);
+    state.completedObjectives.add(objective.id);
+    earn(reward.money);
+    addReputation(reward.reputation);
+    addActivity(`${objective.title} completed. Reward: ${formatMoney(reward.money)} and +${formatNumber(reward.reputation)} rep.`, "Objective");
+    completedAny = true;
+  });
+
+  return completedAny;
 };
 
 function buyClickUpgrade() {
@@ -310,25 +655,54 @@ function buyClickUpgrade() {
   state.money -= nextLevel.cost;
   state.clickLevel += 1;
   addActivity(`Click power upgraded to ${nextLevel.name}.`, "Upgrade");
+  checkObjectives();
   render();
 }
 
-function buyDropper(dropper) {
-  if (state.ownedDroppers.has(dropper.id) || state.money < dropper.cost) return;
+function buyBuilding(building) {
+  const cost = getBuildingCost(building);
+  if (!isBuildingUnlocked(building) || cost === null || state.money < cost) return;
 
-  state.money -= dropper.cost;
-  state.ownedDroppers.add(dropper.id);
-  addActivity(`${dropper.name} is now producing honorariums.`, "Dropper");
+  state.money -= cost;
+  state.buildings[building.id] += 1;
+  addActivity(`${building.name} upgraded to level ${getBuildingLevel(building)}.`, "Build");
+  checkObjectives();
   render();
 }
 
 function buyBoost(boost) {
-  if (state.ownedBoosts.has(boost.id) || state.money < boost.cost) return;
+  if (!isBoostUnlocked(boost) || state.ownedBoosts.has(boost.id) || state.money < boost.cost) return;
 
   state.money -= boost.cost;
   state.ownedBoosts.add(boost.id);
   addActivity(`${boost.name} is active.`, "Boost");
+  checkObjectives();
   render();
+}
+
+function startEvent(event) {
+  if (!isEventUnlocked(event) || state.activeEvent) return;
+
+  state.activeEvent = {
+    id: event.id,
+    remaining: event.duration
+  };
+  addActivity(`${event.name} added to the live calendar.`, "Event");
+  render();
+}
+
+function completeActiveEvent() {
+  if (!state.activeEvent) return;
+
+  const event = speakingEvents.find((item) => item.id === state.activeEvent.id);
+  const reward = getEventReward(event);
+  earn(reward.money);
+  addReputation(reward.reputation);
+  state.completedEventIds.add(event.id);
+  state.completedEventCount += 1;
+  state.activeEvent = null;
+  addActivity(`${event.name} completed for ${formatMoney(reward.money)} and +${formatNumber(reward.reputation)} rep.`, "Event");
+  checkObjectives();
 }
 
 let pressTimeout;
@@ -348,17 +722,34 @@ elements.preachButton.addEventListener("click", (event) => {
   earn(clickValue);
   createFloat(clickValue, event);
   addActivity(`Spoke at ${currentLevel.name} for ${formatMoney(clickValue)}.`, "Honorarium");
+  checkObjectives();
   render();
 });
 
 elements.buyClickUpgrade.addEventListener("click", buyClickUpgrade);
 
+elements.tabButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    state.activeTab = button.dataset.tabTarget;
+    renderTabs();
+  });
+});
+
 setInterval(() => {
   const perSecond = getPerSecond();
-  if (!perSecond) return;
+  if (perSecond) earn(perSecond);
 
-  earn(perSecond);
-  render();
+  if (state.activeEvent) {
+    state.activeEvent.remaining -= 1;
+    if (state.activeEvent.remaining <= 0) {
+      completeActiveEvent();
+    }
+  }
+
+  if (perSecond || state.activeEvent) {
+    checkObjectives();
+    render();
+  }
 }, 1000);
 
 addActivity("Your first invitation just opened.", "Start");
