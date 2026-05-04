@@ -1,6 +1,33 @@
 const animated = document.querySelectorAll("[data-animate]");
 document.body.classList.add("motion-ready");
 
+const siteHeader = document.querySelector(".site-header");
+const menuToggle = document.querySelector(".menu-toggle");
+const primaryNav = document.querySelector("#primary-nav");
+
+const setMenuOpen = (isOpen) => {
+  siteHeader?.classList.toggle("is-menu-open", isOpen);
+  menuToggle?.setAttribute("aria-expanded", String(isOpen));
+  menuToggle?.setAttribute("aria-label", isOpen ? "Close menu" : "Open menu");
+};
+
+menuToggle?.addEventListener("click", () => {
+  setMenuOpen(!siteHeader?.classList.contains("is-menu-open"));
+});
+
+primaryNav?.addEventListener("click", (event) => {
+  if (event.target instanceof HTMLAnchorElement) setMenuOpen(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setMenuOpen(false);
+});
+
+document.addEventListener("click", (event) => {
+  if (!siteHeader?.classList.contains("is-menu-open") || !(event.target instanceof Node)) return;
+  if (!siteHeader.contains(event.target)) setMenuOpen(false);
+});
+
 if ("IntersectionObserver" in window) {
   const reveal = new IntersectionObserver(
     (entries) => {

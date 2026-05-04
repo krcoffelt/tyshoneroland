@@ -1,8 +1,7 @@
 /about /#about 301
 /aboutt /#about 301
 /booking /#booking 301
-/promo-kit /#messages 301
+/promo-kit /promo-kit.html 200
 /calendar / 301
 /coaching / 301
 /products / 301
-/tycoon /tycoon.html 200
