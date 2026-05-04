@@ -278,7 +278,7 @@ const state = {
   completedEventIds: new Set(),
   completedEventCount: 0,
   activeEvent: null,
-  activeTab: "build"
+  activeTab: "play"
 };
 
 const elements = {
@@ -295,6 +295,9 @@ const elements = {
   tierProgressLabel: document.querySelector("#tier-progress-label"),
   tierProgressValue: document.querySelector("#tier-progress-value"),
   tierMeterFill: document.querySelector("#tier-meter-fill"),
+  nextAction: document.querySelector("#next-action"),
+  coachStrip: document.querySelector("#coach-strip"),
+  clickerPanel: document.querySelector(".clicker-panel"),
   eventMeterFill: document.querySelector("#event-meter-fill"),
   activeEvent: document.querySelector("#active-event"),
   objectiveProgress: document.querySelector("#objective-progress"),
@@ -368,6 +371,67 @@ const isBuildingUnlocked = (building) => state.reputation >= building.requireRep
 const isEventUnlocked = (event) => state.clickLevel >= event.requireLevel && state.reputation >= event.requireRep;
 
 const isBoostUnlocked = (boost) => state.reputation >= boost.requireRep;
+
+const getNextAction = () => {
+  if (state.activeEvent) {
+    const event = speakingEvents.find((item) => item.id === state.activeEvent.id);
+    return {
+      label: "Live Event",
+      text: `${event.name} finishes in ${state.activeEvent.remaining}s. Keep preaching while it runs.`
+    };
+  }
+
+  const affordableBuilding = buildings.find((building) => {
+    const cost = getBuildingCost(building);
+    return isBuildingUnlocked(building) && cost !== null && state.money >= cost;
+  });
+  if (affordableBuilding) {
+    return {
+      label: "Build Now",
+      text: `Upgrade ${affordableBuilding.name} to raise passive income.`
+    };
+  }
+
+  const readyEvent = speakingEvents.find((event) => isEventUnlocked(event));
+  if (readyEvent && state.completedEventCount === 0) {
+    return {
+      label: "Book Event",
+      text: `Start ${readyEvent.name} for ${formatMoney(getEventReward(readyEvent).money)} and reputation.`
+    };
+  }
+
+  const nextLevel = clickLevels[state.clickLevel + 1];
+  if (nextLevel && state.money >= nextLevel.cost) {
+    return {
+      label: "Upgrade Click",
+      text: `Buy ${nextLevel.name} to raise every Preach click.`
+    };
+  }
+
+  const nextBuilding = buildings.find((building) => {
+    const cost = getBuildingCost(building);
+    return isBuildingUnlocked(building) && cost !== null;
+  });
+  if (nextBuilding) {
+    return {
+      label: "Earn",
+      text: `${formatMoney(Math.max(0, getBuildingCost(nextBuilding) - state.money))} until ${nextBuilding.name}.`
+    };
+  }
+
+  const lockedEvent = speakingEvents.find((event) => !isEventUnlocked(event));
+  if (lockedEvent) {
+    return {
+      label: "Unlock",
+      text: `Build reputation toward ${lockedEvent.name}.`
+    };
+  }
+
+  return {
+    label: "Keep Scaling",
+    text: "Upgrade buildings, run events, and push toward Elevation Church."
+  };
+};
 
 const earn = (amount) => {
   state.money += amount;
@@ -571,6 +635,7 @@ const renderObjectives = () => {
 
 const renderTabs = () => {
   const panelMap = {
+    play: [elements.clickerPanel],
     build: [elements.buildingList.closest(".shop-panel"), elements.levelList.closest(".shop-panel")],
     calendar: [elements.eventList.closest(".calendar-panel")],
     boosts: [elements.boostList.closest(".shop-panel")],
@@ -603,6 +668,9 @@ const render = () => {
   elements.tierName.textContent = currentLevel.name;
   elements.clickLevelName.textContent = currentLevel.name;
   elements.preachValue.textContent = `+${formatMoney(clickValue)} honorarium`;
+  const nextAction = getNextAction();
+  elements.nextAction.textContent = nextAction.text;
+  elements.coachStrip.innerHTML = `<span>${nextAction.label}</span><strong>${nextAction.text}</strong>`;
 
   if (nextLevel) {
     elements.nextUpgradeName.textContent = nextLevel.name;
