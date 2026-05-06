@@ -1,7 +1,7 @@
 {
   "scripts": {
     "images": "node scripts/generate-images.mjs",
-    "minify:css": "cleancss -o styles.min.css styles.css",
+    "minify:css": "cleancss -o styles.min.css styles.css && cleancss -o anime.min.css anime.css",
     "minify:js": "terser script.js -c -m -o script.min.js",
     "minify": "npm run minify:css && npm run minify:js",
     "build": "npm run images && npm run minify"
